@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "Selection Page";
+}
+
+<h1>Select an Option</h1>
+
+<div>
+    <button id="workButton">Work</button>
+    <button id="scholarshipButton">Scholarship</button>
+    <button id="pensionButton">Pension</button>
+</div>
+
+<button id="saveButton" style="display:none;">Save Selection</button>
+
+<script>
+    let selectedOption = null;
+
+    document.getElementById("workButton").onclick = function() {
+        selectedOption = "Work";
+        showSaveButton();
+    };
+    
+    document.getElementById("scholarshipButton").onclick = function() {
+        selectedOption = "Scholarship";
+        showSaveButton();
+    };
+    
+    document.getElementById("pensionButton").onclick = function() {
+        selectedOption = "Pension";
+        showSaveButton();
+    };
+
+    function showSaveButton() {
+        document.getElementById("saveButton").style.display = "block";
+    }
+
+    document.getElementById("saveButton").onclick = function() {
+        const data = { selected: selectedOption };
+        const json = JSON.stringify(data);
+        
+        const blob = new Blob([json], { type: 'application/json' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'data.json';
+        link.click();
+    };
+</script>
+<input type="file" id="fileInput" accept=".json" style="display:none;" />
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("fileInput").click();
+    });
+
+    document.getElementById("fileInput").onchange = function(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            const result = JSON.parse(e.target.result);
+            selectedOption = result.selected;
+            alert("Loaded selection: " + selectedOption);
+        };
+        
+        if (file) {
+            reader.readAsText(file);
+        }
+    };
+</script>

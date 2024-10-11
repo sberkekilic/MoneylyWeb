@@ -1,0 +1,117 @@
+﻿@page
+@model WebApplication1.Pages.SelectionPageModel
+@{
+    ViewData["Title"] = "Selection Page";
+}
+
+<h1>Select an Option</h1>
+
+<div>
+    <button id="workButton">Work</button>
+    <button id="scholarshipButton">Scholarship</button>
+    <button id="pensionButton">Pension</button>
+</div>
+
+<button id="saveButton" style="display:none;">Save Selection</button>
+
+<input type="file" id="fileInput" accept=".json" style="display:none;" />
+
+<script>
+    let selectedOption = localStorage.getItem('selectedOption');
+
+    function updateSelectedButton() {
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(button => {
+            button.classList.remove('selected');
+            if (button.textContent === selectedOption) {
+                button.classList.add('selected');
+            }
+        });
+    }
+
+    document.getElementById("workButton").onclick = function () {
+        selectedOption = "Work";
+        localStorage.setItem('selectedOption', selectedOption);
+        updateSelectedButton();
+    };
+
+    document.getElementById("scholarshipButton").onclick = function () {
+        selectedOption = "Scholarship";
+        localStorage.setItem('selectedOption', selectedOption);
+        updateSelectedButton();
+    };
+
+    document.getElementById("pensionButton").onclick = function () {
+        selectedOption = "Pension";
+        localStorage.setItem('selectedOption', selectedOption);
+        updateSelectedButton();
+    };
+
+    function showSaveButton() {
+        document.getElementById("saveButton").style.display = "block";
+    }
+
+    // Display the selected button on page load
+    document.addEventListener("DOMContentLoaded", function () {
+        if (selectedOption) {
+            updateSelectedButton();
+            showSaveButton();
+        }
+
+        document.getElementById("fileInput").click();
+    });
+
+    document.getElementById("fileInput").onchange = function (event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            const result = JSON.parse(e.target.result);
+            selectedOption = result.selected;
+            localStorage.setItem('selectedOption', selectedOption);
+            updateSelectedButton();
+            alert("Loaded selection: " + selectedOption);
+        };
+
+        if (file) {
+            reader.readAsText(file);
+        }
+    };
+
+    document.getElementById("saveButton").onclick = function () {
+        const data = { selected: selectedOption };
+        const json = JSON.stringify(data);
+
+        const blob = new Blob([json], { type: 'application/json' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'data.json';
+        link.click();
+    };
+</script>
+
+
+<style>
+    button {
+        padding: 10px 20px;
+        margin: 5px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        background-color: #007bff; /* Default color */
+        color: white;
+    }
+
+        button.selected {
+            background-color: #0056b3; /* Selected color */
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Hover color */
+        }
+
+    #saveButton {
+        margin-top: 20px;
+    }
+</style>
