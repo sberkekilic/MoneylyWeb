@@ -1,10 +1,28 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home Page";
 }
 
-<div class="text-left">
-    <h1 class="display-4">Hoş Geldiniz</h1>
-    <button onclick="location.href='SelectionPage'">Start</button>
+<div class="text-center my-5">
+    <h1 class="display-4 mb-4">Hoş Geldiniz</h1>
+    <button class="btn btn-primary btn-lg" onclick="location.href='SelectionPage'">Başla</button>
 </div>
+
+<style>
+    .text-center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-lg {
+        padding: 1rem 2rem;
+        font-size: 1.25rem;
+    }
+</style>

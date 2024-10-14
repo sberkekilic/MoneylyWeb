@@ -4,23 +4,25 @@
     ViewData["Title"] = "Selection Page";
 }
 
-<h1>Select an Option</h1>
+<div class="text-center my-5">
+    <h1>Select an Option</h1>
 
-<div>
-    <button id="workButton">Work</button>
-    <button id="scholarshipButton">Scholarship</button>
-    <button id="pensionButton">Pension</button>
+    <div class="button-group">
+        <button id="workButton" class="option-button">Work</button>
+        <button id="scholarshipButton" class="option-button">Scholarship</button>
+        <button id="pensionButton" class="option-button">Pension</button>
+    </div>
+
+    <button id="saveButton" class="btn btn-success" style="display:none;">Save Selection</button>
+    <input type="file" id="fileInput" accept=".json" style="display:none;" />
+    <button id="nextButton" class="btn btn-primary" style="display:none;">Next</button>
 </div>
-
-<button id="saveButton" style="display:none;">Save Selection</button>
-
-<input type="file" id="fileInput" accept=".json" style="display:none;" />
 
 <script>
     let selectedOption = localStorage.getItem('selectedOption');
 
     function updateSelectedButton() {
-        const buttons = document.querySelectorAll('button');
+        const buttons = document.querySelectorAll('.option-button');
         buttons.forEach(button => {
             button.classList.remove('selected');
             if (button.textContent === selectedOption) {
@@ -29,35 +31,29 @@
         });
     }
 
-    document.getElementById("workButton").onclick = function () {
-        selectedOption = "Work";
-        localStorage.setItem('selectedOption', selectedOption);
-        updateSelectedButton();
-    };
-
-    document.getElementById("scholarshipButton").onclick = function () {
-        selectedOption = "Scholarship";
-        localStorage.setItem('selectedOption', selectedOption);
-        updateSelectedButton();
-    };
-
-    document.getElementById("pensionButton").onclick = function () {
-        selectedOption = "Pension";
-        localStorage.setItem('selectedOption', selectedOption);
-        updateSelectedButton();
-    };
+    document.querySelectorAll('.option-button').forEach(button => {
+        button.onclick = function () {
+            selectedOption = button.textContent;
+            localStorage.setItem('selectedOption', selectedOption);
+            updateSelectedButton();
+            showSaveButton();
+        };
+    });
 
     function showSaveButton() {
         document.getElementById("saveButton").style.display = "block";
+        document.getElementById("nextButton").style.display = "block";
     }
 
-    // Display the selected button on page load
+    document.getElementById("nextButton").onclick = function () {
+        window.location.href = 'Subs'; // Navigate to the Subs page
+    };
+
     document.addEventListener("DOMContentLoaded", function () {
         if (selectedOption) {
             updateSelectedButton();
             showSaveButton();
         }
-
         document.getElementById("fileInput").click();
     });
 
@@ -81,7 +77,6 @@
     document.getElementById("saveButton").onclick = function () {
         const data = { selected: selectedOption };
         const json = JSON.stringify(data);
-
         const blob = new Blob([json], { type: 'application/json' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
@@ -90,28 +85,39 @@
     };
 </script>
 
-
 <style>
-    button {
+    .text-center {
+        text-align: center;
+    }
+
+    .button-group {
+        margin: 20px 0;
+    }
+
+    .option-button {
         padding: 10px 20px;
         margin: 5px;
         border: none;
         border-radius: 5px;
         cursor: pointer;
         font-size: 16px;
-        background-color: #007bff; /* Default color */
+        background-color: #007bff;
         color: white;
+        transition: background-color 0.3s;
     }
 
-        button.selected {
-            background-color: #0056b3; /* Selected color */
+        .option-button.selected {
+            background-color: #0056b3;
         }
 
-        button:hover {
-            background-color: #0056b3; /* Hover color */
+        .option-button:hover {
+            background-color: #0056b3;
         }
 
     #saveButton {
         margin-top: 20px;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
     }
 </style>

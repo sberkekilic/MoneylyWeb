@@ -29,4 +29,3 @@ C:\Users\Admin\source\repos\WebApplication1\obj\Debug\net8.0\WebApplication1.pdb
 C:\Users\Admin\source\repos\WebApplication1\obj\Debug\net8.0\WebApplication1.genruntimeconfig.cache
 C:\Users\Admin\source\repos\WebApplication1\obj\Debug\net8.0\ref\WebApplication1.dll
 C:\Users\Admin\source\repos\WebApplication1\obj\Debug\net8.0\scopedcss\Pages\Index.cshtml.rz.scp.css
-C:\Users\Admin\source\repos\WebApplication1\bin\Debug\net8.0\data.json
