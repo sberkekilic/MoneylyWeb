@@ -1,0 +1,74 @@
+﻿@page
+@model WebApplication1.Pages.OthersModel
+@{
+    ViewData["Title"] = "Others";
+}
+
+<div class="text-center my-5">
+    <h1>Other Details</h1>
+    <form id="othersForm" method="post" onsubmit="return handleOthersSubmit()">
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="Name" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label for="category">Category:</label>
+            <input type="text" id="category" name="Amount" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" name="PeriodDate" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label for="endDate">End Date (optional):</label>
+            <input type="date" id="endDate" name="DueDate" class="form-control" />
+        </div>
+
+        <input type="hidden" name="selectedOption" id="othersSelectedOption" />
+
+        <button type="submit" class="btn btn-primary mt-3">Confirm</button>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        function handleOthersSubmit() {
+            const selectedOption = localStorage.getItem('selectedOption');
+
+            if (!selectedOption) {
+                alert("Please select an option before submitting.");
+                return false;
+            }
+
+            document.getElementById('othersSelectedOption').value = selectedOption;
+            return true;
+        }
+
+        document.getElementById('othersForm').onsubmit = function (event) {
+            const selectedOption = localStorage.getItem('selectedOption');
+            if (!selectedOption) {
+                alert("Please select an option before submitting the form.");
+                return false;
+            }
+            document.getElementById('othersSelectedOption').value = selectedOption;
+        };
+    </script>
+}
+
+<style>
+    .text-center {
+        text-align: center;
+    }
+
+    .form-group {
+        margin: 15px 0;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+</style>

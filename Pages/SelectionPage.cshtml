@@ -46,6 +46,11 @@
     }
 
     document.getElementById("nextButton").onclick = function () {
+        const selectedOption = localStorage.getItem('selectedOption');
+        if (!selectedOption) {
+            alert("Please select an option before proceeding.");
+            return; // Prevent navigation
+        }
         window.location.href = 'Subs'; // Navigate to the Subs page
     };
 

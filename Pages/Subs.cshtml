@@ -9,22 +9,22 @@
     <form id="subscriptionForm" method="post" onsubmit="return handleSubmit()">
         <div class="form-group">
             <label for="name">Subscription Name:</label>
-            <input type="text" id="name" name="Name" class="form-control" required />
+            <input type="text" id="name" name="Subscription.Name" class="form-control" required />
         </div>
 
         <div class="form-group">
             <label for="amount">Subscription Amount:</label>
-            <input type="number" id="amount" name="Amount" class="form-control" required step="0.01" />
+            <input type="number" id="amount" name="Subscription.Amount" class="form-control" required step="0.01" />
         </div>
 
         <div class="form-group">
             <label for="periodDate">Subscription Period Date:</label>
-            <input type="date" id="periodDate" name="PeriodDate" class="form-control" required />
+            <input type="date" id="periodDate" name="Subscription.PeriodDate" class="form-control" required />
         </div>
 
         <div class="form-group">
             <label for="dueDate">Due Date (optional):</label>
-            <input type="date" id="dueDate" name="DueDate" class="form-control" />
+            <input type="date" id="dueDate" name="Subscription.DueDate" class="form-control" />
         </div>
 
         <input type="hidden" name="selectedOption" id="selectedOption" />
@@ -38,35 +38,27 @@
         function handleSubmit() {
             // Retrieve selected option from localStorage
             const selectedOption = localStorage.getItem('selectedOption');
-            document.getElementById('selectedOption').value = selectedOption; // Set the hidden field value
 
-            // Allow the form to submit
-            return true; // Returning true allows the form to submit
+            if (!selectedOption) {
+                alert("Please select an option before submitting.");
+                return false; // Prevent form submission
+            }
+
+            document.getElementById('selectedOption').value = selectedOption; // Set the hidden field value
+            return true; // Allow the form to submit
         }
+
 
         // Listen for the form submission and handle navigation
         document.getElementById('subscriptionForm').onsubmit = function (event) {
-            event.preventDefault(); // Prevent default form submission
-            const form = this; // Reference to the form
-
-            // Submit the form using AJAX (optional if you want to keep the page from refreshing)
-            fetch(form.action, {
-                method: form.method,
-                body: new FormData(form)
-            })
-                .then(response => {
-                    // After successful submission, navigate to the Bills page
-                    if (response.ok) {
-                        window.location.href = 'Bills'; // Navigate to the Bills page
-                    } else {
-                        // Handle errors here
-                        alert('Error submitting form');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+            const selectedOption = localStorage.getItem('selectedOption');
+            if (!selectedOption) {
+                alert("Please select an option before submitting the form.");
+                return false; // Prevent form submission
+            }
+            document.getElementById('selectedOption').value = selectedOption; // Set the hidden field value
         };
+
     </script>
 }
 
