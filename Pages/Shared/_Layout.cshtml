@@ -26,10 +26,16 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
                     </ul>
+                    <div class="user-info d-flex align-items-center" id="user-info" style="display: none;">
+                        <span class="user-icon">👤</span>
+                        <span class="user-email mx-2"></span>
+                        <button class="btn btn-link" id="logout-button">Logout</button>
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-2">
             @RenderBody()
@@ -45,6 +51,38 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        $(document).ready(function () {
+            const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+            const userInfoDiv = document.getElementById("user-info");
+            const combinedDataFile = localStorage.getItem("combinedDataFile");
+
+            if (isLoggedIn && combinedDataFile) {
+        const currentTime = new Date().getTime();
+        const fileTime = new Date(combinedDataFile).getTime();
+
+        if (fileTime > currentTime) {
+            window.location.href = "Index";
+        }
+    }
+
+            if (isLoggedIn) {
+                const email = localStorage.getItem("email");
+                document.querySelector(".user-email").textContent = email;
+                userInfoDiv.style.display = "flex";
+            } else {
+                userInfoDiv.style.display = "none";
+            }
+
+                document.getElementById("logout-button").addEventListener("click", function () {
+                localStorage.setItem("isLoggedIn", "false");
+                localStorage.removeItem("email");
+                localStorage.removeItem("password");
+                window.location.href = "Login";
+            });
+        });
+    </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

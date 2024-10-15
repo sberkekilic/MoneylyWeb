@@ -16,13 +16,20 @@ namespace WebApplication1.Pages
         [BindProperty]
         public Bills Bill { get; set; }
 
+        [BindProperty]
+        public string SelectedOption { get; set; }
+
+        [BindProperty]
+        public double IncomeAmount { get; set; }
+
         public void OnGet()
         {
         }
 
-        public IActionResult OnPost(string selectedOption)
+        public IActionResult OnPost(string selectedOption, double incomeAmount)
         {
             _logger.LogInformation("Bills form submitted.");
+            _logger.LogInformation("IncomeAmount in Bills: {IncomeAmount}", incomeAmount);
 
             if (ModelState.IsValid)
             {

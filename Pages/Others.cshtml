@@ -27,9 +27,10 @@
             <input type="date" id="endDate" name="DueDate" class="form-control" />
         </div>
 
-        <input type="hidden" name="selectedOption" id="othersSelectedOption" />
+        <input type="hidden" asp-for="SelectedOption" id="selectedOption"/>
+        <input type="hidden" asp-for="IncomeAmount" id="incomeAmount"/>
 
-        <button type="submit" class="btn btn-primary mt-3">Confirm</button>
+        <button type="submit" class="btn btn-primary mt-3">Next</button>
     </form>
 </div>
 
@@ -37,23 +38,28 @@
     <script>
         function handleOthersSubmit() {
             const selectedOption = localStorage.getItem('selectedOption');
+            const incomeAmount = localStorage.getItem('incomeAmount');
 
-            if (!selectedOption) {
+            if (!selectedOption && !incomeAmount) {
                 alert("Please select an option before submitting.");
                 return false;
             }
 
-            document.getElementById('othersSelectedOption').value = selectedOption;
+            document.getElementById('selectedOption').value = selectedOption;
+            document.getElementById('incomeAmount').value = incomeAmount;
             return true;
         }
 
         document.getElementById('othersForm').onsubmit = function (event) {
+            localStorage.setItem("combinedDataFile", new Date().toISOString());
             const selectedOption = localStorage.getItem('selectedOption');
-            if (!selectedOption) {
+            const incomeAmount = localStorage.getItem('incomeAmount');
+            if (!selectedOption && !incomeAmount) {
                 alert("Please select an option before submitting the form.");
                 return false;
             }
-            document.getElementById('othersSelectedOption').value = selectedOption;
+                document.getElementById('selectedOption').value = selectedOption;
+                document.getElementById('incomeAmount').value = incomeAmount;
         };
     </script>
 }

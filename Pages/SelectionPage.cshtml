@@ -13,6 +13,11 @@
         <button id="pensionButton" class="option-button">Pension</button>
     </div>
 
+    <div class="income-input mt-3">
+        <label for="incomeValue">Income Amount</label>
+        <input type="number" id="incomeValue" step="0.01" placeholder="Enter income" />
+    </div>
+
     <button id="saveButton" class="btn btn-success" style="display:none;">Save Selection</button>
     <input type="file" id="fileInput" accept=".json" style="display:none;" />
     <button id="nextButton" class="btn btn-primary" style="display:none;">Next</button>
@@ -20,6 +25,7 @@
 
 <script>
     let selectedOption = localStorage.getItem('selectedOption');
+    let incomeValue = localStorage.getItem('incomeValue');
 
     function updateSelectedButton() {
         const buttons = document.querySelectorAll('.option-button');
@@ -31,6 +37,11 @@
         });
     }
 
+    function updateIncomeValue() {
+        const incomeInput = document.getElementById('incomeValue');
+        incomeInput.ariaValueMax = incomeValue || '';
+    } 
+
     document.querySelectorAll('.option-button').forEach(button => {
         button.onclick = function () {
             selectedOption = button.textContent;
@@ -40,6 +51,13 @@
         };
     });
 
+    document.getElementById('incomeValue').oninput = function () {
+        incomeValue = parseFloat(this.value) || 0;
+        localStorage.setItem('incomeValue', incomeValue);
+        localStorage.setItem('incomeAmount', incomeValue);
+        showSaveButton();
+    }
+
     function showSaveButton() {
         document.getElementById("saveButton").style.display = "block";
         document.getElementById("nextButton").style.display = "block";
@@ -47,18 +65,22 @@
 
     document.getElementById("nextButton").onclick = function () {
         const selectedOption = localStorage.getItem('selectedOption');
-        if (!selectedOption) {
+        const incomeAmount = localStorage.getItem('incomeAmount');
+        if (!selectedOption || !incomeAmount) {
             alert("Please select an option before proceeding.");
             return; // Prevent navigation
         }
-        window.location.href = 'Subs'; // Navigate to the Subs page
+        window.location.href = `Subs?selectedOption=${selectedOption}&incomeAmount=${incomeAmount}`; // Navigate to the Subs page
     };
 
     document.addEventListener("DOMContentLoaded", function () {
         if (selectedOption) {
             updateSelectedButton();
-            showSaveButton();
         }
+        if (incomeValue) {
+            updateSelectedButton();
+        }
+        showSaveButton();
         document.getElementById("fileInput").click();
     });
 
@@ -69,9 +91,12 @@
         reader.onload = function (e) {
             const result = JSON.parse(e.target.result);
             selectedOption = result.selected;
+            incomeValue = parseFloat(result.income) || 0;
             localStorage.setItem('selectedOption', selectedOption);
+            localStorage.setItem('incomeValue', incomeValue);
             updateSelectedButton();
-            alert("Loaded selection: " + selectedOption);
+            updateIncomeValue();
+            alert("Loaded selection: " + selectedOption + ", Income: $" + incomeValue);
         };
 
         if (file) {
@@ -80,7 +105,7 @@
     };
 
     document.getElementById("saveButton").onclick = function () {
-        const data = { selected: selectedOption };
+        const data = { selected: selectedOption, income: incomeValue };
         const json = JSON.stringify(data);
         const blob = new Blob([json], { type: 'application/json' });
         const link = document.createElement('a');

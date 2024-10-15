@@ -14,23 +14,37 @@ namespace WebApplication1.Pages
         }
         [BindProperty]
         public Subscription Subscription { get; set; }
-        public void OnGet()
+
+        [BindProperty]
+        public string SelectedOption { get; set; }
+
+        [BindProperty]
+        public double IncomeAmount { get; set; }
+        public IActionResult OnGet(string selectedOption, double incomeAmount)
         {
+            SelectedOption = selectedOption;
+            IncomeAmount = incomeAmount;
+
+            _logger.LogInformation("SelectedOption: {SelectedOption}", SelectedOption);
+            _logger.LogInformation("IncomeAmount: {IncomeAmount}", IncomeAmount);
+
+            return Page();
         }
 
-        public IActionResult OnPost(string selectedOption)
+        public IActionResult OnPost()
         {
             _logger.LogInformation("Subscription form submitted.");
+            _logger.LogInformation("IncomeAmount in Subs: {IncomeAmount}", IncomeAmount);
 
             if (ModelState.IsValid)
             {
+                // Use parsedIncomeAmount instead of incomeAmount here
                 var subsData = new
                 {
                     Subscription.Name,
                     Subscription.Amount,
                     Subscription.PeriodDate,
                     Subscription.DueDate,
-                    SelectedOption = selectedOption
                 };
 
                 TempData["SubsData"] = JsonSerializer.Serialize(subsData);
@@ -38,15 +52,15 @@ namespace WebApplication1.Pages
                 return RedirectToPage("Bills");
             }
 
-            else
+            ModelState.AddModelError("incomeAmount", "Invalid income amount.");
+            _logger.LogWarning("Invalid income amount.");
+            foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
             {
-                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
-                {
-                    _logger.LogWarning("Model error: {ErrorMessage}", error.ErrorMessage);
-                }
+                _logger.LogWarning("Model error: {ErrorMessage}", error.ErrorMessage);
             }
 
             return Page();
         }
+
     }
 }

@@ -27,7 +27,8 @@
             <input type="date" id="dueDate" name="Subscription.DueDate" class="form-control" />
         </div>
 
-        <input type="hidden" name="selectedOption" id="selectedOption" />
+        <input type="hidden" asp-for="SelectedOption" id="selectedOption"/>
+        <input type="hidden" asp-for="IncomeAmount" id="incomeAmount"/>
 
         <button type="submit" class="btn btn-primary mt-3">Next</button>
     </form>
@@ -38,27 +39,23 @@
         function handleSubmit() {
             // Retrieve selected option from localStorage
             const selectedOption = localStorage.getItem('selectedOption');
+            const incomeAmount = localStorage.getItem('incomeAmount');
 
-            if (!selectedOption) {
-                alert("Please select an option before submitting.");
+            // Ensure selectedOption and incomeAmount are not empty
+            if (!selectedOption || !incomeAmount) {
+                alert("Please select an option and enter your income amount before submitting.");
                 return false; // Prevent form submission
             }
 
-            document.getElementById('selectedOption').value = selectedOption; // Set the hidden field value
+            // Set the hidden field values
+            document.getElementById('selectedOption').value = selectedOption;
+            document.getElementById('incomeAmount').value = incomeAmount;
+
             return true; // Allow the form to submit
         }
 
-
         // Listen for the form submission and handle navigation
-        document.getElementById('subscriptionForm').onsubmit = function (event) {
-            const selectedOption = localStorage.getItem('selectedOption');
-            if (!selectedOption) {
-                alert("Please select an option before submitting the form.");
-                return false; // Prevent form submission
-            }
-            document.getElementById('selectedOption').value = selectedOption; // Set the hidden field value
-        };
-
+        document.getElementById('subscriptionForm').onsubmit = handleSubmit;
     </script>
 }
 

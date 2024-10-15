@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WqM1lD33hnloOcCrGLGDzXVO+uQrq/Z2J6nIhGIBjm0=",
+  "Hash": "SG4M/DS8O/CrG4a6tqYr7x9FzGCx6gQ8a+fhKIy33SI=",
   "Source": "WebApplication1",
   "BasePath": "_content/WebApplication1",
   "Mode": "Default",
@@ -53,6 +53,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Admin\\source\\repos\\WebApplication1\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\WebApplication1.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\source\\repos\\WebApplication1\\wwwroot\\combined_data.json",
+      "SourceId": "WebApplication1",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\source\\repos\\WebApplication1\\wwwroot\\",
+      "BasePath": "_content/WebApplication1",
+      "RelativePath": "combined_data.json",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\combined_data.json"
     },
     {
       "Identity": "C:\\Users\\Admin\\source\\repos\\WebApplication1\\wwwroot\\css\\site.css",

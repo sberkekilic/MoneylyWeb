@@ -1,0 +1,69 @@
+﻿@page
+@model LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="text-left">
+    <h2>Login</h2>
+    <form method="post" onsubmit="return loginUser()">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+</div>
+
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("isLoggedIn") === "true") {
+            window.location.href = 'Index';
+        }
+    };
+
+    function loginUser() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        const storedEmail = localStorage.getItem("email");
+        const storedPassword = localStorage.getItem("password");
+
+        if (email === storedEmail && password === storedPassword) {
+            localStorage.setItem("isLoggedIn", "true");
+            alert("Login successful!");
+            window.location.href = "SelectionPage";
+        } else {
+            alert("Incorrect email or password.");
+        }
+
+        return false; // Prevent form submission
+    }
+</script>
+
+
+<style>
+    .text-left {
+        text-align: left;
+        margin-left: 2rem;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 0.5rem;
+        margin-top: 0.5rem;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+</style>

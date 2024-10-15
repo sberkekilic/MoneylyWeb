@@ -16,19 +16,34 @@ namespace WebApplication1.Pages
 
         [BindProperty]
         public Others Other { get; set; }
+
+        [BindProperty]
+        public string SelectedOption { get; set; }
+
+        [BindProperty]
+        public double IncomeAmount { get; set; }
         public void OnGet()
         {
         }
-        public IActionResult OnPost(string selectedOption)
+        public IActionResult OnPost(string selectedOption, double incomeAmount)
         {
 
             _logger.LogInformation("Others form submitted.");
+            _logger.LogInformation("IncomeAmount in Others: {IncomeAmount}", incomeAmount);
 
             if (ModelState.IsValid)
             {
                 _logger.LogInformation("Model is valid, starting file write process.");
 
-                if (TempData.TryGetValue("SubsData", out var subsDataJson) && TempData.TryGetValue("BillsData", out var billsDataJson) && subsDataJson != null && billsDataJson != null)
+                if (
+                    TempData.TryGetValue("SubsData", out var subsDataJson) 
+                    && 
+                    TempData.TryGetValue("BillsData", out var billsDataJson) 
+                    && 
+                    subsDataJson != null 
+                    && 
+                    billsDataJson != null
+                    )
                 {
                     var subsData = JsonSerializer.Deserialize<dynamic>(subsDataJson.ToString());
                     var billsData = JsonSerializer.Deserialize<dynamic>(billsDataJson.ToString());
@@ -44,6 +59,7 @@ namespace WebApplication1.Pages
                     var combinedData = new
                     {
                         SelectedOption = selectedOption,
+                        IncomeAmount = incomeAmount,
                         Subscription = subsData,
                         Bills = billsData,
                         Others = othersData
@@ -54,6 +70,7 @@ namespace WebApplication1.Pages
                     try
                     {
                         System.IO.File.WriteAllText(filePath, JsonSerializer.Serialize(combinedData, new JsonSerializerOptions { WriteIndented = true }));
+
                         _logger.LogInformation("Data successfully written to combined_data.json");
                     }
                     catch (Exception ex)
@@ -68,7 +85,7 @@ namespace WebApplication1.Pages
                     TempData.Remove("SubsData");
                     TempData.Remove("BillsData");
 
-                    return Page();
+                    return RedirectToPage("HomePage");
                 }
                 else
                 {

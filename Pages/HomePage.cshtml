@@ -1,0 +1,47 @@
+﻿@page
+@model WebApplication1.Pages.HomePageModel
+@{
+    ViewData["Title"] = "Others";
+}
+
+<div class="container mt-5">
+    <div class="text-left">
+        <h1>Data Overview</h1>
+    </div>
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title">Selected Option</h5>
+            <p class="card-text">@Model.JsonData.SelectedOption</p>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title">Income Amount</h5>
+            <p class="card-text">$@Model.JsonData.IncomeAmount</p>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title">Subscription</h5>
+            <p class="card-text">Name: @Model.JsonData.Subscription.Name</p>
+            <p class="card-text">Amount: $@Model.JsonData.Subscription.Amount</p>
+            <p class="card-text">Period Date: @Model.JsonData.Subscription.PeriodDate</p>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title">Bills</h5>
+            <p class="card-text">Name: @Model.JsonData.Bills.Name</p>
+            <p class="card-text">Amount: $@Model.JsonData.Bills.Amount</p>
+            <p class="card-text">Period Date: @Model.JsonData.Bills.PeriodDate</p>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title">Others</h5>
+            <p class="card-text">Name: @Model.JsonData.Others.Name</p>
+            <p class="card-text">Amount: $@Model.JsonData.Others.Amount</p>
+            <p class="card-text">Period Date: @Model.JsonData.Others.PeriodDate</p>
+        </div>
+    </div>
+</div>

@@ -27,7 +27,8 @@
             <input type="date" id="dueDate" name="DueDate" class="form-control" />
         </div>
 
-        <input type="hidden" name="selectedOption" id="selectedOption" />
+        <input type="hidden" asp-for="SelectedOption" id="selectedOption" />
+        <input type="hidden" asp-for="IncomeAmount" id="incomeAmount" />
 
         <button type="submit" class="btn btn-primary mt-3">Next</button>
     </form>
@@ -38,23 +39,27 @@
         function handleSubmit() {
             // Retrieve selected option from localStorage
             const selectedOption = localStorage.getItem('selectedOption');
+            const incomeAmount = localStorage.getItem('incomeAmount');
 
-            if (!selectedOption) {
+            if (!selectedOption && !incomeAmount) {
                 alert("Please select an option before submitting.");
                 return false; // Prevent form submission
             }
 
             document.getElementById('selectedOption').value = selectedOption; // Set the hidden field value
+            document.getElementById('incomeAmount').value = incomeAmount;
             return true; // Allow the form to submit
         }
         document.getElementById('billForm').onsubmit = function (event) {
             // Retrieve selected option from localStorage
             const selectedOption = localStorage.getItem('selectedOption');
-            if (!selectedOption) {
+            const incomeAmount = localStorage.getItem('incomeAmount');
+            if (!selectedOption && !incomeAmount) {
                 alert("Please select an option before submitting the form.");
                 return false; // Prevent form submission
             }
             document.getElementById('selectedOption').value = selectedOption; // Set the hidden field value
+            document.getElementById('incomeAmount').value = incomeAmount;
         };
     </script>
 }

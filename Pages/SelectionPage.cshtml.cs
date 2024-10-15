@@ -5,8 +5,19 @@ namespace WebApplication1.Pages
 {
     public class SelectionPageModel : PageModel
     {
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            return Page();
+        }
+
+        public IActionResult OnPost()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            return RedirectToPage("Subs"); 
         }
     }
 }

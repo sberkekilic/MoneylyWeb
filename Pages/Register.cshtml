@@ -1,0 +1,65 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="text-left">
+    <h2>Register</h2>
+    <form method="post" onsubmit="return registerUser()">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-secondary">Register</button>
+    </form>
+</div>
+
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("isLoggedIn") === "true") {
+            window.location.href = 'Index';
+        }
+    };
+
+    function registerUser() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        localStorage.setItem("email", email);
+        localStorage.setItem("password", password);
+        localStorage.setItem("isLoggedIn", "true");
+
+        alert("Registration successful!");
+        window.location.href = "Login";
+
+        return false; // Prevent form submission
+    }
+</script>
+
+
+<style>
+    .text-left {
+        text-align: left;
+        margin-left: 2rem;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 0.5rem;
+        margin-top: 0.5rem;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+</style>

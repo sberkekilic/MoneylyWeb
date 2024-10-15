@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\WebApplication1.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebApplication1\\wwwroot\\combined_data.json",
+      "PackagePath": "staticwebassets\\combined_data.json"
+    },
+    {
       "Id": "C:\\Users\\Admin\\source\\repos\\WebApplication1\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

@@ -4,16 +4,39 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center my-5">
+<!-- Check if user is logged in on page load and redirect -->
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("isLoggedIn") === "true") {
+            window.location.href = 'Subs';
+        }
+    };
+</script>
+
+<!-- Display for non-authenticated users only -->
+<div class="text-left my-5" id="auth-container">
     <h1 class="display-4 mb-4">Hoş Geldiniz</h1>
-    <button class="btn btn-primary btn-lg" onclick="location.href='SelectionPage'">Başla</button>
+
+    <div id="button-container">
+        <button class="btn btn-primary btn-lg me-2" onclick="location.href='Login'">Login</button>
+        <button class="btn btn-secondary btn-lg" onclick="location.href='Register'">Register</button>
+    </div>
+</div>
+
+<!-- Display user info if authenticated -->
+<div id="user-info" class="user-info" style="display: none;">
+    <span class="user-icon">👤</span>
+    <span class="user-email"></span>
 </div>
 
 <style>
-    .text-center {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    .text-left {
+        text-align: left;
+        margin-left: 2rem;
+    }
+
+    .btn {
+        width: 120px;
     }
 
     .btn-primary {
@@ -21,8 +44,68 @@
         border-color: #007bff;
     }
 
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
     .btn-lg {
-        padding: 1rem 2rem;
+        padding: 0.75rem 1.5rem;
         font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    #button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .me-2 {
+        margin-bottom: 0.5rem;
+    }
+
+    .user-info {
+        position: fixed;
+        top: 1rem;
+        right: 2rem;
+        display: flex;
+        align-items: center;
+        font-size: 1.2rem;
+    }
+
+    .user-icon {
+        font-size: 1.5rem;
+        margin-right: 0.5rem;
+    }
+
+    .user-email {
+        font-weight: bold;
     }
 </style>
+
+<script>
+    // Check if the user is logged in and show user info
+    window.onload = function () {
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+        const userInfoDiv = document.getElementById("user-info");
+        const authContainer = document.getElementById("auth-container");
+
+        if (isLoggedIn) {
+            // Redirect to Subs page if the user is logged in
+            window.location.href = 'SelectionPage';
+        } else {
+            // Show login and register options
+            authContainer.style.display = "block";
+            userInfoDiv.style.display = "none";
+        }
+
+        // If logged in, show user info at the top right
+        if (isLoggedIn) {
+            const email = localStorage.getItem("email");
+            document.querySelector(".user-email").textContent = email;
+            userInfoDiv.style.display = "flex";
+            authContainer.style.display = "none";
+        }
+    };
+</script>
