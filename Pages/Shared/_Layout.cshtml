@@ -53,19 +53,36 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     <script>
-        $(document).ready(function () {
+
+        $(document).ready(async function () {
+            const response = await fetch('/combined_data.json');
+            if (!response.ok) { 
+                console.error("Failed to fetch combined.data.json");
+                return;
+            }
+            const combinedData = await response.json();
+            const storedEmail = combinedData.Email; // Adjusted to match the JSON structure
+
             const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
             const userInfoDiv = document.getElementById("user-info");
             const combinedDataFile = localStorage.getItem("combinedDataFile");
 
             if (isLoggedIn && combinedDataFile) {
-        const currentTime = new Date().getTime();
+             const currentTime = new Date().getTime();
         const fileTime = new Date(combinedDataFile).getTime();
 
         if (fileTime > currentTime) {
             window.location.href = "Index";
         }
     }
+
+            if (isLoggedIn && loggedInEmail === storedEmail) {
+                // Redirect to HomePage if the user email matches
+                const currentPage = window.location.pathname;
+                if (currentPage !== '/HomePage') {
+                    window.location.href = "/HomePage";
+                }
+            }
 
             if (isLoggedIn) {
                 const email = localStorage.getItem("email");
@@ -75,12 +92,25 @@
                 userInfoDiv.style.display = "none";
             }
 
-                document.getElementById("logout-button").addEventListener("click", function () {
-                localStorage.setItem("isLoggedIn", "false");
-                localStorage.removeItem("email");
-                localStorage.removeItem("password");
-                window.location.href = "Login";
+            document.getElementById("logout-button").addEventListener("click", async function () {
+                console.log("Logout button clicked");
+
+                // Optionally send a logout request to the server to update the JSON file
+                const response = await fetch('/api/logout', { method: 'POST' });
+
+                if (response.ok) {
+                    console.log("Logout successful");
+                    localStorage.setItem("isLoggedIn", "false");
+                    localStorage.removeItem("email");
+                    localStorage.removeItem("password");
+                    // Redirect to Login page
+                    window.location.href = "Login";
+                } else {
+                    console.error("Logout failed:", response.status);
+                }
             });
+
+
         });
     </script>
 

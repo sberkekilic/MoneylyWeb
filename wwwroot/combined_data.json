@@ -1,6 +1,7 @@
 {
+  "Email": "sberkekilic@gmail.com",
   "SelectedOption": "Work",
-  "IncomeAmount": 145,
+  "IncomeAmount": 20000,
   "Subscription": {
     "Name": "a",
     "Amount": 100,
@@ -10,7 +11,7 @@
   "Bills": {
     "Name": "b",
     "Amount": 200,
-    "PeriodDate": "2000-01-01T00:00:00",
+    "PeriodDate": "2000-01-02T00:00:00",
     "DueDate": null
   },
   "Others": {
