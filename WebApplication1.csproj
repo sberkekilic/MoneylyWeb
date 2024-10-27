@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\ValuesController.cs" />
     <Compile Remove="Models\Login.cs" />
     <Compile Remove="Pages\Options.cshtml.cs" />
   </ItemGroup>

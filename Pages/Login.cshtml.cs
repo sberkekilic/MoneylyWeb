@@ -21,34 +21,57 @@ namespace WebApplication1.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "users.json");
+            var userFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "users.json");
+            var combinedDataFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "combined_data.json");
 
-            if (System.IO.File.Exists(filePath))
+            if (System.IO.File.Exists(userFilePath))
             {
-                var jsonData = await System.IO.File.ReadAllTextAsync(filePath);
-                var storedUserData = JsonSerializer.Deserialize<User>(jsonData);
+                // Read and deserialize the list of users
+                var userJsonData = await System.IO.File.ReadAllTextAsync(userFilePath);
+                var users = JsonSerializer.Deserialize<List<User>>(userJsonData);
 
-                if (storedUserData.Email == Email && storedUserData.Password == Password)
+                // Find the user with the matching email and password
+                var storedUser = users?.FirstOrDefault(u => u.Email == Email && u.Password == Password);
+
+                if (storedUser != null)
                 {
-                    storedUserData.isLoggedIn = true;
+                    // Update the user's login state
+                    storedUser.isLoggedIn = true;
 
-                    string updatedJson = JsonSerializer.Serialize(storedUserData, new JsonSerializerOptions { WriteIndented = true });
-                    await System.IO.File.WriteAllTextAsync(filePath, updatedJson);
+                    // Serialize the updated user list back to JSON
+                    string updatedJson = JsonSerializer.Serialize(users, new JsonSerializerOptions { WriteIndented = true });
+                    await System.IO.File.WriteAllTextAsync(userFilePath, updatedJson);
+
                     // Store email in session after successful login
+                    HttpContext.Session.SetString("IsLoggedIn", "true");
                     HttpContext.Session.SetString("LoggedInEmail", Email);
-                    return RedirectToPage("SelectionPage");
+                    TempData["Email"] = Email;
+                    TempData["IsLoggedIn"] = "true";
+
+                    // Return a JSON response indicating success
+                    return new JsonResult(new { success = true, email = Email });
                 }
                 else
                 {
-                    ErrorMessage = "Incorrect email or password.";
-                    return Page();
+                    // User not found or incorrect password
+                    return new JsonResult(new { success = false, errorMessage = "Incorrect email or password." });
                 }
             }
             else
             {
-                ErrorMessage = "No registered users found.";
-                return Page();
+                // Handle case where users.json does not exist
+                return new JsonResult(new { success = false, errorMessage = "No registered users found." });
             }
         }
+    }
+
+    public class CombinedData
+    {
+        public string Email { get; set; }
+        public string SelectedOption { get; set; }
+        public decimal IncomeAmount { get; set; }
+        public Subscription Subscription { get; set; }
+        public Bills Bills { get; set; }
+        public Others Others { get; set; }
     }
 }

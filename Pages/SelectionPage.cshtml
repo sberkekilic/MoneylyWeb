@@ -74,6 +74,23 @@
     };
 
     document.addEventListener("DOMContentLoaded", function () {
+        const loggedInEmail = '@Html.Raw(Model.LoggedInEmail ?? "null")'; // Use Razor to inject the email
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        localStorage.setItem("loggedInEmail", loggedInEmail);
+
+        if (isLoggedIn === "true") {
+            console.log("Stored Email:", loggedInEmail);
+            console.log("Is Logged In: true(text)");
+            console.log("Logged In Email:", loggedInEmail);
+            window.location.href = `SelectionPage?isLoggedIn=${isLoggedIn}&loggedInEmail=${loggedInEmail}`;
+            // Show logout button or other UI elements for logged in users
+        } else {
+            console.log("Is Logged In: false(3)");
+            console.log("Logged In Email: null");
+            // Optionally redirect to login page
+            window.location.href = 'Login';
+        }
+
         if (selectedOption) {
             updateSelectedButton();
         }

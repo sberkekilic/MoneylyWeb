@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Text.Json;
-using System.Text.Json.Nodes;
 using WebApplication1.Models;
 
 namespace WebApplication1.Pages
@@ -30,19 +31,29 @@ namespace WebApplication1.Pages
         {
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "combined_data.json");
             var jsonData = System.IO.File.ReadAllText(filePath);
-            var jsonObject = JsonSerializer.Deserialize<JsonModel>(jsonData);
+            var jsonObject = System.Text.Json.JsonSerializer.Deserialize<JsonModel>(jsonData);
             return jsonObject.Email; // Assuming your JSON structure has Email property
         }
 
         public IActionResult OnGet()
         {
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "users.json");
+            var userFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "users.json");
 
-            if (System.IO.File.Exists(filePath))
+            // Check if users.json exists
+            if (System.IO.File.Exists(userFilePath))
             {
-                var jsonData = System.IO.File.ReadAllText(filePath);
-                var storedUserData = JsonSerializer.Deserialize<User>(jsonData);
-                bool isLoggedIn = storedUserData.isLoggedIn;
+                var jsonData = System.IO.File.ReadAllText(userFilePath);
+                var storedUserData = JsonConvert.DeserializeObject<JArray>(jsonData);
+                bool isLoggedIn = false;
+
+                foreach (var user in storedUserData)
+                {
+                    if (user["isLoggedIn"] != null && user["isLoggedIn"].Value<bool>())
+                    {
+                        isLoggedIn = true;
+                        break;
+                    }
+                }
 
                 if (!isLoggedIn)
                 {
@@ -51,16 +62,25 @@ namespace WebApplication1.Pages
             }
             LoggedInEmail = HttpContext.Session.GetString("LoggedInEmail");
 
-            // Load the email from JSON
-            string emailFromJson = GetEmailFromJson();
-            if (LoggedInEmail == emailFromJson)
+            // Check if combined_data.json exists before calling GetEmailFromJson
+            var combinedDataFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "combined_data.json");
+            if (System.IO.File.Exists(combinedDataFilePath))
             {
-                // Redirect to HomePage if the logged-in email matches the email from JSON
-                return RedirectToPage("/HomePage");
+                string emailFromJson = GetEmailFromJson();
+                if (LoggedInEmail == emailFromJson)
+                {
+                    // Redirect to HomePage if the logged-in email matches the email from JSON
+                    return RedirectToPage("/HomePage");
+                }
+            }
+            else
+            {
+                _logger.LogWarning("combined_data.json file does not exist.");
             }
 
             return Page();
         }
+
         public IActionResult OnPost(string selectedOption, double incomeAmount)
         {
             LoggedInEmail = HttpContext.Session.GetString("LoggedInEmail");
@@ -77,8 +97,8 @@ namespace WebApplication1.Pages
 
             if (TempData.TryGetValue("SubsData", out var subsDataJson) && TempData.TryGetValue("BillsData", out var billsDataJson))
             {
-                var subsData = JsonSerializer.Deserialize<dynamic>(subsDataJson.ToString());
-                var billsData = JsonSerializer.Deserialize<dynamic>(billsDataJson.ToString());
+                var subsData = System.Text.Json.JsonSerializer.Deserialize<dynamic>(subsDataJson.ToString());
+                var billsData = System.Text.Json.JsonSerializer.Deserialize<dynamic>(billsDataJson.ToString());
 
                 var othersData = new
                 {
@@ -102,7 +122,7 @@ namespace WebApplication1.Pages
 
                 try
                 {
-                    System.IO.File.WriteAllText(filePath, JsonSerializer.Serialize(combinedData, new JsonSerializerOptions { WriteIndented = true }));
+                    System.IO.File.WriteAllText(filePath, System.Text.Json.JsonSerializer.Serialize(combinedData, new JsonSerializerOptions { WriteIndented = true }));
                     _logger.LogInformation("Data successfully written to combined_data.json");
                 }
                 catch (Exception ex)

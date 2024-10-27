@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />
+    <style>
+        .user-email {
+            color: red; /* Set email color to red */
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -17,19 +22,11 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Index</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                    </ul>
+                <div class="navbar-collapse collapse justify-content-end">
                     <div class="user-info d-flex align-items-center" id="user-info" style="display: none;">
-                        <span class="user-icon">👤</span>
-                        <span class="user-email mx-2"></span>
-                        <button class="btn btn-link" id="logout-button">Logout</button>
+                        <span class="user-icon me-2">👤</span>
+                        <div class="user-email mx-2" id="user-email"></div> <!-- Changed from span to div -->
+                        <button class="btn btn-link" id="logout-button" onclick="logoutUser()">Logout</button>
                     </div>
                 </div>
             </div>
@@ -53,66 +50,48 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     <script>
+        async function logoutUser() {
+            const loggedInEmail = localStorage.getItem("loggedInEmail");
 
-        $(document).ready(async function () {
-            const response = await fetch('/combined_data.json');
-            if (!response.ok) { 
-                console.error("Failed to fetch combined.data.json");
-                return;
-            }
-            const combinedData = await response.json();
-            const storedEmail = combinedData.Email; // Adjusted to match the JSON structure
-
-            const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-            const userInfoDiv = document.getElementById("user-info");
-            const combinedDataFile = localStorage.getItem("combinedDataFile");
-
-            if (isLoggedIn && combinedDataFile) {
-             const currentTime = new Date().getTime();
-        const fileTime = new Date(combinedDataFile).getTime();
-
-        if (fileTime > currentTime) {
-            window.location.href = "Index";
-        }
-    }
-
-            if (isLoggedIn && loggedInEmail === storedEmail) {
-                // Redirect to HomePage if the user email matches
-                const currentPage = window.location.pathname;
-                if (currentPage !== '/HomePage') {
-                    window.location.href = "/HomePage";
-                }
-            }
-
-            if (isLoggedIn) {
-                const email = localStorage.getItem("email");
-                document.querySelector(".user-email").textContent = email;
-                userInfoDiv.style.display = "flex";
-            } else {
-                userInfoDiv.style.display = "none";
-            }
-
-            document.getElementById("logout-button").addEventListener("click", async function () {
-                console.log("Logout button clicked");
-
-                // Optionally send a logout request to the server to update the JSON file
-                const response = await fetch('/api/logout', { method: 'POST' });
+            // Make an API call to update the user status in users.json
+            try {
+                const response = await fetch('/api/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ Email: loggedInEmail }) // Send the email to logout
+                });
 
                 if (response.ok) {
-                    console.log("Logout successful");
-                    localStorage.setItem("isLoggedIn", "false");
-                    localStorage.removeItem("email");
-                    localStorage.removeItem("password");
-                    // Redirect to Login page
-                    window.location.href = "Login";
+                    console.log("User logged out successfully.");
+                    localStorage.setItem("isLoggedIn", "false"); // Set to false after logout
+                    localStorage.removeItem("loggedInEmail"); // Remove email from localStorage
+                    window.location.href = 'Login'; // Redirect to login page
                 } else {
                     console.error("Logout failed:", response.status);
                 }
-            });
+            } catch (error) {
+                console.error("Error during logout:", error);
+            }
+        }
 
+        $(document).ready(function () {
+            // Check if a user is logged in by checking localStorage
+            const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+            const loggedInEmail = localStorage.getItem("loggedInEmail");
+            const userInfoDiv = document.getElementById("user-info");
+            const userEmailDiv = document.getElementById("user-email");
 
+            if (isLoggedIn && loggedInEmail) {
+                userEmailDiv.textContent = loggedInEmail; // Display the email
+                userInfoDiv.style.display = "flex"; // Show user info section
+            } else {
+                userInfoDiv.style.display = "none"; // Hide user info if not logged in
+            }
         });
     </script>
+
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

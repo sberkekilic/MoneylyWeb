@@ -4,7 +4,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 // Add session services
-builder.Services.AddSession();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+// Add controllers (for API support)
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -21,11 +29,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
-
 // Enable session middleware
 app.UseSession();
 
+app.UseAuthorization();
+
 app.MapRazorPages();
+
+// Map controllers (API routes)
+app.MapControllers();
 
 app.Run();

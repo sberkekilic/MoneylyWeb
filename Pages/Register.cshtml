@@ -22,7 +22,7 @@
 <script>
     window.onload = function () {
         if (localStorage.getItem("isLoggedIn") === "true") {
-            window.location.href = 'Index';
+            window.location.href = 'Index3';
         }
     };
 
@@ -30,12 +30,12 @@
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
 
-        localStorage.setItem("email", email);
+        localStorage.setItem("loggedInEmail", email);
         localStorage.setItem("password", password);
         localStorage.setItem("isLoggedIn", "true");
 
         alert("Registration successful!");
-        window.location.href = "Login";
+        window.location.href = "Login1";
 
         return false; // Prevent form submission
     }

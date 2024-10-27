@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
@@ -10,24 +13,30 @@ namespace WebApplication1.Controllers
     public class LogoutController : ControllerBase
     {
         [HttpPost]
-        public async Task<IActionResult> Post()
+        public async Task<IActionResult> Post([FromBody] LogoutRequest request)
         {
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "users.json");
 
-            if (System.IO.File.Exists(filePath))
+            if (!System.IO.File.Exists(filePath))
             {
-                var jsonData = await System.IO.File.ReadAllTextAsync(filePath);
-                var userData = JsonSerializer.Deserialize<User>(jsonData);
-
-                // Set isLoggedIn to false
-                userData.isLoggedIn = false;
-
-                string updatedJson = JsonSerializer.Serialize(userData, new JsonSerializerOptions { WriteIndented = true });
-                await System.IO.File.WriteAllTextAsync(filePath, updatedJson);
-
-                return Ok();
+                return NotFound("User data not found.");
             }
-            return NotFound("User data not found.");
+
+            var userJsonData = await System.IO.File.ReadAllTextAsync(filePath);
+            var users = JsonSerializer.Deserialize<List<User>>(userJsonData);
+
+            var user = users.FirstOrDefault(u => u.Email == request.Email);
+            if (user != null)
+            {
+                user.isLoggedIn = false; // Set isLoggedIn to false
+                                         // Optionally, you can also set other fields to null or empty
+            }
+
+            // Save the updated user data back to the file
+            var updatedUserJsonData = JsonSerializer.Serialize(users);
+            await System.IO.File.WriteAllTextAsync(filePath, updatedUserJsonData);
+
+            return Ok();
         }
     }
 }

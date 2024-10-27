@@ -42,7 +42,7 @@
             const incomeAmount = localStorage.getItem('incomeAmount');
             const email = localStorage.getItem('email');
 
-            if (!selectedOption && !incomeAmount) {
+            if (!selectedOption && !incomeAmount || !email) {
                 alert("Please select an option before submitting.");
                 return false;
             }

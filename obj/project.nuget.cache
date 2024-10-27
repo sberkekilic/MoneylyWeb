@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "k5ZEJ5T9hQg=",
+  "dgSpecHash": "M9KKYEZ4EXk=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Admin\\source\\repos\\WebApplication1\\WebApplication1.csproj",
+  "projectFilePath": "C:\\Users\\Semih\\Documents\\WebApplication1\\WebApplication1.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Admin\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+    "C:\\Users\\Semih\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
   ],
   "logs": []
 }

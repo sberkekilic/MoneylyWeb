@@ -7,10 +7,12 @@
 <!-- Check if user is logged in on page load and redirect -->
 <script>
     window.onload = function () {
+        // Redirect to Index if user is logged in and page is not being accessed right after logout
         if (localStorage.getItem("isLoggedIn") === "true") {
-            window.location.href = 'Subs';
+            window.location.href = 'Index';
         }
     };
+
 </script>
 
 <!-- Display for non-authenticated users only -->
@@ -93,7 +95,7 @@
 
         // If logged in, show user info at the top right
         if (isLoggedIn) {
-            const email = localStorage.getItem("email");
+            const email = localStorage.getItem("loggedInEmail");
             document.querySelector(".user-email").textContent = email;
             userInfoDiv.style.display = "flex";
             authContainer.style.display = "none";,
