@@ -7,47 +7,43 @@ namespace WebApplication1.Pages
 {
     public class IndexModel : PageModel
     {
-        public void OnGet()
+        public IActionResult OnGet()
         {
-            // Check login status using session first
-            if (HttpContext.Session.GetString("IsLoggedIn") == "true")
+            // First check login status using session
+            bool isLoggedIn = HttpContext.Session.GetString("IsLoggedIn") == "true";
+
+            // If not logged in by session, check users.json as a fallback
+            if (!isLoggedIn)
             {
-                Response.Redirect("/SelectionPage");
-                return;
-            }
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "users.json");
 
-            // If session is not set, check the users.json file as fallback
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "users.json");
-
-            if (System.IO.File.Exists(filePath))
-            {
-                var jsonData = System.IO.File.ReadAllText(filePath);
-                var storedUserData = JsonConvert.DeserializeObject<JArray>(jsonData);
-                bool isLoggedIn = false;
-
-                foreach (var user in storedUserData)
+                if (System.IO.File.Exists(filePath))
                 {
-                    if (user["isLoggedIn"] != null && user["isLoggedIn"].Value<bool>())
+                    var jsonData = System.IO.File.ReadAllText(filePath);
+                    var storedUserData = JsonConvert.DeserializeObject<JArray>(jsonData);
+
+                    foreach (var user in storedUserData)
                     {
-                        isLoggedIn = true;
-                        break;
+                        if (user["isLoggedIn"] != null && user["isLoggedIn"].Value<bool>())
+                        {
+                            isLoggedIn = true;
+                            HttpContext.Session.SetString("IsLoggedIn", "true");
+                            break;
+                        }
                     }
                 }
 
-                if (isLoggedIn)
-                {
-                    Response.Redirect("/SelectionPage");
-                }
-                else
-                {
-                    Response.Redirect("/Login");
-                }
+              
             }
+            
             else
             {
-                // If no users.json file exists, redirect to Login page
-                Response.Redirect("/Login");
+                Response.Redirect("/SelectionPage");
             }
+
+
+            return Page();
+
         }
     }
 }

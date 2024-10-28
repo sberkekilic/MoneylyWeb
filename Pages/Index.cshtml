@@ -4,17 +4,6 @@
     ViewData["Title"] = "Home Page";
 }
 
-<!-- Check if user is logged in on page load and redirect -->
-<script>
-    window.onload = function () {
-        // Redirect to Index if user is logged in and page is not being accessed right after logout
-        if (localStorage.getItem("isLoggedIn") === "true") {
-            window.location.href = 'Index';
-        }
-    };
-
-</script>
-
 <!-- Display for non-authenticated users only -->
 <div class="text-left my-5" id="auth-container">
     <h1 class="display-4 mb-4">Hoş Geldiniz</h1>
@@ -98,8 +87,7 @@
             const email = localStorage.getItem("loggedInEmail");
             document.querySelector(".user-email").textContent = email;
             userInfoDiv.style.display = "flex";
-            authContainer.style.display = "none";,
-            window.location.href = 'SelectionPage';
+            authContainer.style.display = "none";
         } else {
             // Show login and register options
             authContainer.style.display = "block";

@@ -10,10 +10,15 @@ namespace WebApplication1.Pages
     {
         public string LoggedInEmail { get; private set; }
         public bool IsLoggedIn { get; private set; }
-        public async Task<IActionResult> OnGetAsync(string isLoggedIn)
+        public async Task<IActionResult> OnGetAsync()
         {
             LoggedInEmail = HttpContext.Session.GetString("LoggedInEmail");
-            IsLoggedIn = !string.IsNullOrEmpty(isLoggedIn) && isLoggedIn.Equals("true", StringComparison.OrdinalIgnoreCase);
+            IsLoggedIn = HttpContext.Session.GetString("IsLoggedIn") == "true";
+
+            if (!IsLoggedIn)
+            {
+                return RedirectToPage("/Index");
+            }
 
             var combinedDataFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "combined_data.json");
             var userFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "users.json");
@@ -28,10 +33,9 @@ namespace WebApplication1.Pages
 
                 var userExists = users?.Any(u => u.Email == LoggedInEmail) == true;
 
-                if (IsLoggedIn && userExists && combinedData != null && combinedData.Email == LoggedInEmail)
+                if (userExists && combinedData != null && combinedData.Email == LoggedInEmail)
                 {
-                    // Redirect to HomePage if email matches
-                    return RedirectToPage("HomePage"); // Replace with your actual HomePage
+                    return RedirectToPage("HomePage");
                 }
             }
             else
@@ -40,7 +44,6 @@ namespace WebApplication1.Pages
             }
 
             return Page();
-
         }
 
         public IActionResult OnPost()
@@ -50,7 +53,7 @@ namespace WebApplication1.Pages
                 return Page();
             }
 
-            return RedirectToPage("Subs"); 
+            return RedirectToPage("Subs");
         }
     }
 }

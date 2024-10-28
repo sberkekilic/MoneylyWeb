@@ -70,7 +70,7 @@ namespace WebApplication1.Pages
                 if (LoggedInEmail == emailFromJson)
                 {
                     // Redirect to HomePage if the logged-in email matches the email from JSON
-                    return RedirectToPage("/HomePage");
+                    return RedirectToPage("/HomePage1");
                 }
             }
             else
@@ -135,7 +135,7 @@ namespace WebApplication1.Pages
                 TempData.Remove("SubsData");
                 TempData.Remove("BillsData");
 
-                return RedirectToPage("HomePage"); // Redirect after successful post
+                return RedirectToPage("HomePage2"); // Redirect after successful post
             }
             else
             {

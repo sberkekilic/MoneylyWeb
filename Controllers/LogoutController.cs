@@ -36,7 +36,9 @@ namespace WebApplication1.Controllers
             var updatedUserJsonData = JsonSerializer.Serialize(users);
             await System.IO.File.WriteAllTextAsync(filePath, updatedUserJsonData);
 
-            return Ok();
+            HttpContext.Session.Remove("IsLoggedIn");
+            
+            return Ok(new {message = "Logout Successful"});
         }
     }
 }

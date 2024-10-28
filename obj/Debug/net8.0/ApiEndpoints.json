@@ -1,12 +1,18 @@
 [
   {
-    "ContainingType": "WebApplication1.Controllers.UserController",
-    "Method": "Logout",
-    "RelativePath": "api/User/logout",
+    "ContainingType": "WebApplication1.Controllers.LogoutController",
+    "Method": "Post",
+    "RelativePath": "api/Logout",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "WebApplication1.Models.LogoutRequest",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   }
 ]

@@ -1,7 +1,1 @@
-[
-  {
-    "Email": "test1@gmail.com",
-    "Password": "1234",
-    "isLoggedIn": true
-  }
-]
+[{"Email":"test1@gmail.com","Password":"1234","isLoggedIn":false}]

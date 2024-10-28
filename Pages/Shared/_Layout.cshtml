@@ -53,28 +53,31 @@
         async function logoutUser() {
             const loggedInEmail = localStorage.getItem("loggedInEmail");
 
-            // Make an API call to update the user status in users.json
             try {
                 const response = await fetch('/api/logout', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ Email: loggedInEmail }) // Send the email to logout
+                    body: JSON.stringify({ Email: loggedInEmail })
                 });
 
                 if (response.ok) {
-                    console.log("User logged out successfully.");
-                    localStorage.setItem("isLoggedIn", "false"); // Set to false after logout
-                    localStorage.removeItem("loggedInEmail"); // Remove email from localStorage
-                    window.location.href = 'Login'; // Redirect to login page
+                    const responseData = await response.text();
+                    console.log("User logged out successfully:", responseData || "No response content");
+                    localStorage.removeItem("isLoggedIn");
+                    localStorage.removeItem("loggedInEmail");
+                    console.log("Redirecting to Index page...");
+                    window.location.href = '/Index';
                 } else {
-                    console.error("Logout failed:", response.status);
+                    console.error("Logout failed with status:", response.status, await response.text());
                 }
             } catch (error) {
                 console.error("Error during logout:", error);
             }
         }
+
+
 
         $(document).ready(function () {
             // Check if a user is logged in by checking localStorage
