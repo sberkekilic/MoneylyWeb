@@ -6,7 +6,7 @@
 
 <div class="text-left">
     <h2>Register</h2>
-    <form method="post">
+    <form method="post" onsubmit="registerUser (event);">
         <div class="form-group">
             <label for="email">Email:</label>
             <input type="email" id="email" name="Email" class="form-control" required />
@@ -16,28 +16,44 @@
             <input type="password" id="password" name="Password" class="form-control" required />
         </div>
         <button type="submit" class="btn btn-secondary">Register</button>
+        <p id="error-message" style="color:red;"></p>
     </form>
 </div>
 
 <script>
-    window.onload = function () {
-        if (localStorage.getItem("isLoggedIn") === "true") {
-            window.location.href = 'Index3';
+    function registerUser(event) {
+        event.preventDefault();
+
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+
+        if (emailInput.checkVisibility() && passwordInput.checkVisibility()) {
+            const formData = new FormData(event.target);
+
+            fetch(event.target.action, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const errorMessageElement = document.getElementById("error-message");
+                    if (data.success) {
+                        window.location.href = "/Index";
+                    } else {
+                        errorMessageElement.innerText = data.errorMessage || "Register failed.";
+                    }
+                })
+                .catch(Error => {
+                    console.error('Error:', error);
+                    const errorMessageElement = document.getElementById("error-message");
+                    if (errorMessageElement) {
+                        errorMessageElement.innerText = "Register failed.";
+                    }
+                });
+        } else {
+            event.target.reportValidity();
         }
-    };
 
-    function registerUser() {
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-
-        localStorage.setItem("loggedInEmail", email);
-        localStorage.setItem("password", password);
-        localStorage.setItem("isLoggedIn", "true");
-
-        alert("Registration successful!");
-        window.location.href = "Login1";
-
-        return false; // Prevent form submission
     }
 </script>
 

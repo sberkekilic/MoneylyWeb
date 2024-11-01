@@ -1,1 +1,12 @@
-[{"Email":"test1@gmail.com","Password":"1234","isLoggedIn":false}]
+[
+  {
+    "Email": "test1@gmail.com",
+    "Password": "1234",
+    "isLoggedIn": false
+  },
+  {
+    "Email": "test2@gmail.com",
+    "Password": "abc123",
+    "isLoggedIn": true
+  }
+]

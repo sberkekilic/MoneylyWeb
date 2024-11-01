@@ -9,41 +9,34 @@ namespace WebApplication1.Pages
     {
         public IActionResult OnGet()
         {
-            // First check login status using session
-            bool isLoggedIn = HttpContext.Session.GetString("IsLoggedIn") == "true";
+            // Retrieve session values for login status and email
+            var isLoggedIn = HttpContext.Session.GetString("IsLoggedIn") == "true";
+            var loggedInEmail = HttpContext.Session.GetString("LoggedInEmail");
 
-            // If not logged in by session, check users.json as a fallback
-            if (!isLoggedIn)
+            // Step 1: Check if the session is set to a logged-in state and email exists
+            if (isLoggedIn && !string.IsNullOrEmpty(loggedInEmail))
             {
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "users.json");
+                // Step 2: Check if this email exists in combined_data.json
+                var combinedDataFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "combined_data.json");
 
-                if (System.IO.File.Exists(filePath))
+                if (System.IO.File.Exists(combinedDataFilePath))
                 {
-                    var jsonData = System.IO.File.ReadAllText(filePath);
-                    var storedUserData = JsonConvert.DeserializeObject<JArray>(jsonData);
+                    var jsonData = System.IO.File.ReadAllText(combinedDataFilePath);
+                    var combinedDataList = JsonConvert.DeserializeObject<List<CombinedData>>(jsonData) ?? new List<CombinedData>();
 
-                    foreach (var user in storedUserData)
+                    // Step 3: Verify the user's email in the combined data
+                    bool userExists = combinedDataList.Any(data => data.Email == loggedInEmail);
+
+                    if (userExists)
                     {
-                        if (user["isLoggedIn"] != null && user["isLoggedIn"].Value<bool>())
-                        {
-                            isLoggedIn = true;
-                            HttpContext.Session.SetString("IsLoggedIn", "true");
-                            break;
-                        }
+                        // Redirect to HomePage if email is found
+                        return RedirectToPage("/HomePage");
                     }
                 }
-
-              
-            }
-            
-            else
-            {
-                Response.Redirect("/SelectionPage");
             }
 
-
+            // If session data is absent or user is not found in combined_data.json, stay on Index page
             return Page();
-
         }
     }
 }

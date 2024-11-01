@@ -8,46 +8,61 @@
     <div class="text-left">
         <h1>Data Overview</h1>
     </div>
-    <div class="card mt-3">
-        <div class="card-body">
-            <h5 class="card-title">Email</h5>
-            <p class="card-text">@Model.JsonData.Email</p>
-        </div>
-    </div>
-    <div class="card mt-3">
-        <div class="card-body">
-            <h5 class="card-title">Selected Option</h5>
-            <p class="card-text">@Model.JsonData.SelectedOption</p>
-        </div>
-    </div>
-    <div class="card mt-3">
-        <div class="card-body">
-            <h5 class="card-title">Income Amount</h5>
-            <p class="card-text">$@Model.JsonData.IncomeAmount</p>
-        </div>
-    </div>
-    <div class="card mt-3">
-        <div class="card-body">
-            <h5 class="card-title">Subscription</h5>
-            <p class="card-text">Name: @Model.JsonData.Subscription.Name</p>
-            <p class="card-text">Amount: $@Model.JsonData.Subscription.Amount</p>
-            <p class="card-text">Period Date: @Model.JsonData.Subscription.PeriodDate</p>
-        </div>
-    </div>
-    <div class="card mt-3">
-        <div class="card-body">
-            <h5 class="card-title">Bills</h5>
-            <p class="card-text">Name: @Model.JsonData.Bills.Name</p>
-            <p class="card-text">Amount: $@Model.JsonData.Bills.Amount</p>
-            <p class="card-text">Period Date: @Model.JsonData.Bills.PeriodDate</p>
-        </div>
-    </div>
-    <div class="card mt-3">
-        <div class="card-body">
-            <h5 class="card-title">Others</h5>
-            <p class="card-text">Name: @Model.JsonData.Others.Name</p>
-            <p class="card-text">Amount: $@Model.JsonData.Others.Amount</p>
-            <p class="card-text">Period Date: @Model.JsonData.Others.PeriodDate</p>
-        </div>
-    </div>
+
+    <!-- Debug output to verify data binding -->
+    <p>User email: @HttpContext.Session.GetString("LoggedInEmail")</p>
+    <p>Data count: @(Model.JsonData != null ? Model.JsonData.Count : 0)</p>
+
+    @if (Model.JsonData != null && Model.JsonData.Count > 0)
+    {
+        foreach (var data in Model.JsonData)
+        {
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Email</h5>
+                    <p class="card-text">@data.Email</p>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Selected Option</h5>
+                    <p class="card-text">@data.SelectedOption</p>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Income Amount</h5>
+                    <p class="card-text">$@data.IncomeAmount</p>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Subscription</h5>
+                    <p class="card-text">Name: @data.Subscription?.Name</p>
+                    <p class="card-text">Amount: $@data.Subscription?.Amount</p>
+                    <p class="card-text">Period Date: @data.Subscription?.PeriodDate</p>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Bills</h5>
+                    <p class="card-text">Name: @data.Bills?.Name</p>
+                    <p class="card-text">Amount: $@data.Bills?.Amount</p>
+                    <p class="card-text">Period Date: @data.Bills?.PeriodDate</p>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Others</h5>
+                    <p class="card-text">Name: @data.Others?.Name</p>
+                    <p class="card-text">Amount: $@data.Others?.Amount</p>
+                    <p class="card-text">Period Date: @data.Others?.PeriodDate</p>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>No data available.</p>
+    }
 </div>

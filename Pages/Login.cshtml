@@ -21,15 +21,12 @@
 </div>
 
 <script>
+
     function loginUser(event) {
         event.preventDefault();
 
         const emailInput = document.getElementById("email");
         const passwordInput = document.getElementById("password");
-
-        console.log("Form submitted");
-        console.log("Email:", emailInput.value);
-        console.log("Password:", passwordInput.value);
 
         // Check form validity
         if (emailInput.checkValidity() && passwordInput.checkValidity()) {

@@ -12,6 +12,7 @@ namespace WebApplication1.Pages
 
         [BindProperty]
         public string Password { get; set; }
+        public string ErrorMessage { get; set; }
         public void OnGet()
         {
         }
@@ -26,6 +27,7 @@ namespace WebApplication1.Pages
             {
                 var jsonData = await System.IO.File.ReadAllTextAsync(filePath);
                 users = JsonSerializer.Deserialize<List<User>>(jsonData) ?? new List<User>();
+            
             }
             else
             {
@@ -35,19 +37,18 @@ namespace WebApplication1.Pages
             // Check if the email already exists
             if (users.Any(u => u.Email == Email))
             {
-                ModelState.AddModelError(string.Empty, "Email is already registered.");
-                return Page();
+                return new JsonResult(new { success = false, errorMessage = "Email is already registered." });
             }
 
             // Add new user
-            var newUser = new User { Email = Email, Password = Password, isLoggedIn = true };
+            var newUser = new User { Email = Email, Password = Password, isLoggedIn = false };
             users.Add(newUser);
 
             // Write updated users list back to JSON
             string jsonString = JsonSerializer.Serialize(users, new JsonSerializerOptions { WriteIndented = true });
             await System.IO.File.WriteAllTextAsync(filePath, jsonString);
 
-            return RedirectToPage("Login2");
+            return new JsonResult(new { success = true });
         }
     }
 }

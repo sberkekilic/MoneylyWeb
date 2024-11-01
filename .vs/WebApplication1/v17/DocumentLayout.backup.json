@@ -3,133 +3,165 @@
   "WorkspaceRootPath": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|c:\\users\\admin\\documents\\github\\moneylyweb\\pages\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|solutionrelative:pages\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|c:\\users\\admin\\documents\\github\\moneylyweb\\controllers\\logoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|solutionrelative:controllers\\logoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|c:\\users\\admin\\documents\\github\\moneylyweb\\wwwroot\\users.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|solutionrelative:wwwroot\\users.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|c:\\users\\admin\\documents\\github\\moneylyweb\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|solutionrelative:pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|c:\\users\\admin\\documents\\github\\moneylyweb\\controllers\\emailcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|solutionrelative:controllers\\emailcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|c:\\users\\admin\\documents\\github\\moneylyweb\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|solutionrelative:pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|c:\\users\\admin\\documents\\github\\moneylyweb\\pages\\homepage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|solutionrelative:pages\\homepage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|c:\\users\\admin\\documents\\github\\moneylyweb\\pages\\selectionpage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|solutionrelative:pages\\selectionpage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|c:\\users\\admin\\documents\\github\\moneylyweb\\pages\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|solutionrelative:pages\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|c:\\users\\admin\\documents\\github\\moneylyweb\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|c:\\users\\admin\\documents\\github\\moneylyweb\\pages\\homepage.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|solutionrelative:pages\\homepage.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|c:\\users\\admin\\documents\\github\\moneylyweb\\pages\\homepage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|solutionrelative:pages\\homepage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|c:\\users\\admin\\documents\\github\\moneylyweb\\pages\\selectionpage.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|solutionrelative:pages\\selectionpage.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|c:\\users\\admin\\documents\\github\\moneylyweb\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0DA1572C-DE83-463F-9A26-A9C1F409E50C}|WebApplication1.csproj|solutionrelative:pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
     {
-      "Orientation": 1,
+      "Orientation": 0,
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedHeight": 200,
-          "SelectedChildIndex": 1,
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "LogoutController.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Controllers\\LogoutController.cs",
-              "RelativeDocumentMoniker": "Controllers\\LogoutController.cs",
-              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Controllers\\LogoutController.cs",
-              "RelativeToolTip": "Controllers\\LogoutController.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAwwCYAAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-28T04:47:36.045Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Index.cshtml.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Pages\\Index.cshtml.cs",
-              "RelativeDocumentMoniker": "Pages\\Index.cshtml.cs",
-              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Pages\\Index.cshtml.cs",
-              "RelativeToolTip": "Pages\\Index.cshtml.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAAAcwCIAAAAAAAAAAAAAAA==",
+              "Title": "EmailController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Controllers\\EmailController.cs",
+              "RelativeDocumentMoniker": "Controllers\\EmailController.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Controllers\\EmailController.cs",
+              "RelativeToolTip": "Controllers\\EmailController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABwAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-28T04:37:51.523Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Pages\\Index.cshtml",
-              "RelativeDocumentMoniker": "Pages\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Pages\\Index.cshtml",
-              "RelativeToolTip": "Pages\\Index.cshtml",
-              "ViewState": "AgIAAD8AAAAAAAAAAAAcwEwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-28T04:37:37.38Z",
+              "WhenOpened": "2024-11-01T04:56:34.87Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Pages\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "Pages\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Pages\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "Pages\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAADsAAAAAAAAAAAAcwEYAAAA0AAAAAAAAAA==",
+              "Title": "SelectionPage.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Pages\\SelectionPage.cshtml",
+              "RelativeDocumentMoniker": "Pages\\SelectionPage.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Pages\\SelectionPage.cshtml",
+              "RelativeToolTip": "Pages\\SelectionPage.cshtml",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAwwEwAAABqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-28T04:37:19.75Z",
+              "WhenOpened": "2024-11-01T04:45:02.312Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Pages\\Index.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Pages\\Index.cshtml",
+              "RelativeToolTip": "Pages\\Index.cshtml",
+              "ViewState": "AgIAAFQAAAAAAAAAAADwv2EAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-01T04:44:20.101Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "HomePage.cshtml.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Pages\\HomePage.cshtml.cs",
-              "RelativeDocumentMoniker": "Pages\\HomePage.cshtml.cs",
-              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Pages\\HomePage.cshtml.cs",
-              "RelativeToolTip": "Pages\\HomePage.cshtml.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAQwBIAAAAAAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-28T04:32:40.345Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "HomePage.cshtml",
-              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Pages\\HomePage.cshtml",
-              "RelativeDocumentMoniker": "Pages\\HomePage.cshtml",
-              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Pages\\HomePage.cshtml",
-              "RelativeToolTip": "Pages\\HomePage.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-28T04:32:39.045Z",
+              "WhenOpened": "2024-10-31T20:04:56.492Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "users.json",
-              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\wwwroot\\users.json",
-              "RelativeDocumentMoniker": "wwwroot\\users.json",
-              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\wwwroot\\users.json",
-              "RelativeToolTip": "wwwroot\\users.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAABCAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-10-28T04:32:24.701Z",
+              "Title": "HomePage.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Pages\\HomePage.cshtml",
+              "RelativeDocumentMoniker": "Pages\\HomePage.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Pages\\HomePage.cshtml",
+              "RelativeToolTip": "Pages\\HomePage.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-31T19:58:33.688Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "HomePage.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Pages\\HomePage.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\HomePage.cshtml.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Pages\\HomePage.cshtml.cs",
+              "RelativeToolTip": "Pages\\HomePage.cshtml.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAswCIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T19:42:40.799Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SelectionPage.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Pages\\SelectionPage.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\SelectionPage.cshtml.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Pages\\SelectionPage.cshtml.cs",
+              "RelativeToolTip": "Pages\\SelectionPage.cshtml.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAgwCUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T19:39:07.189Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Pages\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\Index.cshtml.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Pages\\Index.cshtml.cs",
+              "RelativeToolTip": "Pages\\Index.cshtml.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAkwBYAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T19:35:21.865Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\MoneylyWeb\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Pages\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAAAF0AAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-31T10:47:59.126Z"
             }
           ]
         }

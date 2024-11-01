@@ -60,24 +60,8 @@ namespace WebApplication1.Pages
                     Response.Redirect("/Index");
                 }
             }
+
             LoggedInEmail = HttpContext.Session.GetString("LoggedInEmail");
-
-            // Check if combined_data.json exists before calling GetEmailFromJson
-            var combinedDataFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "combined_data.json");
-            if (System.IO.File.Exists(combinedDataFilePath))
-            {
-                string emailFromJson = GetEmailFromJson();
-                if (LoggedInEmail == emailFromJson)
-                {
-                    // Redirect to HomePage if the logged-in email matches the email from JSON
-                    return RedirectToPage("/HomePage1");
-                }
-            }
-            else
-            {
-                _logger.LogWarning("combined_data.json file does not exist.");
-            }
-
             return Page();
         }
 
@@ -97,32 +81,59 @@ namespace WebApplication1.Pages
 
             if (TempData.TryGetValue("SubsData", out var subsDataJson) && TempData.TryGetValue("BillsData", out var billsDataJson))
             {
-                var subsData = System.Text.Json.JsonSerializer.Deserialize<dynamic>(subsDataJson.ToString());
-                var billsData = System.Text.Json.JsonSerializer.Deserialize<dynamic>(billsDataJson.ToString());
+                var subsData = System.Text.Json.JsonSerializer.Deserialize<Subscription>(subsDataJson.ToString());
+                var billsData = System.Text.Json.JsonSerializer.Deserialize<Bills>(billsDataJson.ToString());
 
-                var othersData = new
+                var othersData = new Others
                 {
-                    Other.Name,
-                    Other.Amount,
-                    Other.PeriodDate,
-                    Other.DueDate
+                    Name = Other.Name,
+                    Amount = Other.Amount, 
+                    PeriodDate = Other.PeriodDate,
+                    DueDate = Other.DueDate
                 };
 
-                var combinedData = new
+                var combinedData = new CombinedData
                 {
                     Email = LoggedInEmail,
                     SelectedOption = selectedOption,
-                    IncomeAmount = incomeAmount,
-                    Subscription = subsData,
-                    Bills = billsData,
-                    Others = othersData
+                    IncomeAmount = (decimal)incomeAmount, // Convert to decimal
+                    Subscription = subsData, // Ensure this is the correct type
+                    Bills = billsData, // Ensure this is the correct type
+                    Others = othersData // Use the created instance
                 };
 
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "combined_data.json");
 
+                // Read existing data
+                List<CombinedData> combinedDataList = new List<CombinedData>();
+                if (System.IO.File.Exists(filePath))
+                {
+                    var existingDataJson = System.IO.File.ReadAllText(filePath);
+                    combinedDataList = System.Text.Json.JsonSerializer.Deserialize<List<CombinedData>>(existingDataJson) ?? new List<CombinedData>();
+                }
+
+                // Check if the user already exists in the list
+                var existingUser = combinedDataList.FirstOrDefault(u => u.Email == LoggedInEmail);
+                if (existingUser != null)
+                {
+                    // Update existing user data
+                    existingUser.SelectedOption = selectedOption;
+                    existingUser.IncomeAmount = (decimal)incomeAmount;
+                    existingUser.Subscription = subsData;
+                    existingUser.Bills = billsData;
+                    existingUser.Others = othersData;
+                }
+                else
+                {
+                    // Add new user data
+                    combinedDataList.Add(combinedData);
+                }
+
+                // Write back to the combined_data.json
                 try
                 {
-                    System.IO.File.WriteAllText(filePath, System.Text.Json.JsonSerializer.Serialize(combinedData, new JsonSerializerOptions { WriteIndented = true }));
+                    var updatedDataJson = System.Text.Json.JsonSerializer.Serialize(combinedDataList, new JsonSerializerOptions { WriteIndented = true });
+                    System.IO.File.WriteAllText(filePath, updatedDataJson);
                     _logger.LogInformation("Data successfully written to combined_data.json");
                 }
                 catch (Exception ex)
@@ -135,7 +146,7 @@ namespace WebApplication1.Pages
                 TempData.Remove("SubsData");
                 TempData.Remove("BillsData");
 
-                return RedirectToPage("HomePage2"); // Redirect after successful post
+                return RedirectToPage("HomePage"); // Redirect after successful post
             }
             else
             {

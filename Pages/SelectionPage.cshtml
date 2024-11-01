@@ -82,7 +82,6 @@
             console.log("Stored Email:", loggedInEmail);
             console.log("Is Logged In: true(text)");
             console.log("Logged In Email:", loggedInEmail);
-            window.location.href = `SelectionPage?isLoggedIn=${isLoggedIn}&loggedInEmail=${loggedInEmail}`;
             // Show logout button or other UI elements for logged in users
         } else {
             console.log("Is Logged In: false(3)");
@@ -95,7 +94,7 @@
             updateSelectedButton();
         }
         if (incomeValue) {
-            updateSelectedButton();
+            updateIncomeValue();
         }
         showSaveButton();
         document.getElementById("fileInput").click();

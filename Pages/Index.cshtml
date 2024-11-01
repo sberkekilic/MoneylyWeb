@@ -88,6 +88,26 @@
             document.querySelector(".user-email").textContent = email;
             userInfoDiv.style.display = "flex";
             authContainer.style.display = "none";
+
+            // Validate the email with the server
+            fetch('/api/validate-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: email })
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Redirect to HomePage if the email is valid
+                        window.location.href = '/HomePage';
+                    } else {
+                        console.error("Email validation failed.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
         } else {
             // Show login and register options
             authContainer.style.display = "block";

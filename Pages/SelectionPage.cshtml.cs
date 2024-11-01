@@ -15,7 +15,7 @@ namespace WebApplication1.Pages
             LoggedInEmail = HttpContext.Session.GetString("LoggedInEmail");
             IsLoggedIn = HttpContext.Session.GetString("IsLoggedIn") == "true";
 
-            if (!IsLoggedIn)
+            if (!IsLoggedIn || string.IsNullOrEmpty(LoggedInEmail))
             {
                 return RedirectToPage("/Index");
             }
@@ -25,22 +25,28 @@ namespace WebApplication1.Pages
 
             if (System.IO.File.Exists(userFilePath) && System.IO.File.Exists(combinedDataFilePath))
             {
-                var userJsonData = await System.IO.File.ReadAllTextAsync(userFilePath);
-                var combinedDataJson = await System.IO.File.ReadAllTextAsync(combinedDataFilePath);
-
-                var users = System.Text.Json.JsonSerializer.Deserialize<List<User>>(userJsonData);
-                var combinedData = System.Text.Json.JsonSerializer.Deserialize<CombinedData>(combinedDataJson);
-
-                var userExists = users?.Any(u => u.Email == LoggedInEmail) == true;
-
-                if (userExists && combinedData != null && combinedData.Email == LoggedInEmail)
+                try
                 {
-                    return RedirectToPage("HomePage");
+                    var userJsonData = await System.IO.File.ReadAllTextAsync(userFilePath);
+                    var combinedDataJson = await System.IO.File.ReadAllTextAsync(combinedDataFilePath);
+
+                    var users = System.Text.Json.JsonSerializer.Deserialize<List<User>>(userJsonData);
+                    var combinedDataList = System.Text.Json.JsonSerializer.Deserialize<List<CombinedData>>(combinedDataJson) ?? new List<CombinedData>();
+
+                    bool userExists = users?.Any(u => u.Email == LoggedInEmail) == true;
+                    bool existingCombinedData = combinedDataList.Any(cd => cd.Email == LoggedInEmail);
+
+                    if (userExists && existingCombinedData)
+                    {
+                        return RedirectToPage("HomePage");
+                    }
                 }
-            }
-            else
-            {
-                return RedirectToPage("ErrorPage");
+                catch (Exception ex)
+                {
+                    // Log the exception
+                    Console.WriteLine($"Error reading files: {ex.Message}");
+                    return RedirectToPage("ErrorPage1");
+                }
             }
 
             return Page();

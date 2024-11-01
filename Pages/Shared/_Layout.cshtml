@@ -87,10 +87,14 @@
             const userEmailDiv = document.getElementById("user-email");
 
             if (isLoggedIn && loggedInEmail) {
-                userEmailDiv.textContent = loggedInEmail; // Display the email
-                userInfoDiv.style.display = "flex"; // Show user info section
+                userEmailDiv.textContent = loggedInEmail;
+                userInfoDiv.style.display = "flex";
+
+                if (window.location.pathname == "/") {
+                    window.location.hred = "/Index";
+                }
             } else {
-                userInfoDiv.style.display = "none"; // Hide user info if not logged in
+                userInfoDiv.style.display = "none"; 
             }
         });
     </script>
